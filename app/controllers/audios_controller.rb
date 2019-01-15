@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class AudiosController < ApplicationController
-  before_action :set_audio, only: i%[show, update, destroy]
+class AudiosController < OpenReadController
+  before_action :set_audio, only: %i[show, update, destroy]
 
   # GET /audios
   def index
@@ -12,7 +12,7 @@ class AudiosController < ApplicationController
 
   # GET /audios/1
   def show
-    render json: @audio
+    render json: Audio.find(params[:id])
   end
 
   # POST /audios
@@ -28,6 +28,7 @@ class AudiosController < ApplicationController
 
   # PATCH/PUT /audios/1
   def update
+    @audio = Audio.find params[:id]
     if @audio.update(audio_params)
       render json: @audio
     else

@@ -10,4 +10,11 @@ Rails.application.routes.draw do
   post '/sign-in' => 'users#signin'
   delete '/sign-out' => 'users#signout'
   patch '/change-password' => 'users#changepw'
+
+  #Audios routes
+  get '/audios' => 'audios#index'
+  get '/audios' => 'audios#show'
+  post '/audios' => 'audios#create'
+  patch '/audios/:id' => 'audios#update'
+  delete '/audios/:id' => 'audios#destroy'
 end
