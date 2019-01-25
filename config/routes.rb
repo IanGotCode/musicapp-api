@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   #Audios routes
   get '/audios' => 'audios#index'
-  get '/audios' => 'audios#show'
+  get '/audios/:id' => 'audios#show'
   post '/audios' => 'audios#create'
   patch '/audios/:id' => 'audios#update'
   delete '/audios/:id' => 'audios#destroy'
