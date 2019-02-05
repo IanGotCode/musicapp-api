@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class AudiosController < OpenReadController
-  before_action :set_audio, only: %i[show, update, destroy]
+class AudiosController < ProtectedController
+  before_action :set_audio, only: %i[update, destroy]
 
   # GET /audios
   def index
-    @audios = Audio.all
+    @audios = current_user.audios
 
     render json: @audios
   end
@@ -17,8 +17,7 @@ class AudiosController < OpenReadController
 
   # POST /audios
   def create
-    @audio = Audio.new(audio_params)
-
+    @audio = current_user.audios.build(audio_params)
     if @audio.save
       render json: @audio, status: :created, location: @audio
     else
@@ -28,7 +27,7 @@ class AudiosController < OpenReadController
 
   # PATCH/PUT /audios/1
   def update
-    @audio = Audio.find params[:id]
+    # @audio = Audio.find params[:id]
     if @audio.update(audio_params)
       render json: @audio
     else
@@ -44,7 +43,7 @@ class AudiosController < OpenReadController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_audio
-      @audio = Audio.find(params[:id])
+      @audio = current_user.audios.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
